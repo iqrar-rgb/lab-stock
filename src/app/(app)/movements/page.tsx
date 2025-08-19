@@ -20,7 +20,6 @@ export default function MovementsPage() {
     const { data } = await supabase.from("products").select("id,sku,name").order("name");
     setProducts((data as Product[]) ?? []);
   }, []);
-
   useEffect(() => { loadProducts(); }, [loadProducts]);
 
   const loadLots = useCallback(async (pid: string) => {
@@ -32,9 +31,8 @@ export default function MovementsPage() {
       .order("expiry_date", { ascending: true });
     const list = ((data as Lot[]) ?? []).filter(l => !l.is_quarantined);
     setLots(list);
-    if (type === "OUT" && list.length) setLotId(list[0].id); // FEFO default
+    if (type === "OUT" && list.length) setLotId(list[0].id);
   }, [type]);
-
   useEffect(() => { loadLots(productId); }, [productId, loadLots]);
 
   const submit = async (e: React.FormEvent) => {
@@ -45,10 +43,7 @@ export default function MovementsPage() {
       { product_id: productId, lot_id: lotId, movement_type: type, qty: n, reference, notes }
     ]);
     if (error) setMsg(error.message);
-    else {
-      setMsg("Movement berhasil disimpan."); setQty("1"); setReference(""); setNotes("");
-      await loadLots(productId);
-    }
+    else { setMsg("Movement berhasil disimpan."); setQty("1"); setReference(""); setNotes(""); await loadLots(productId); }
   };
 
   return (
@@ -73,30 +68,25 @@ export default function MovementsPage() {
         </div>
 
         <div className="flex gap-3 items-end">
-          <label className="block">
-            <span className="text-sm">Type</span>
+          <label className="block"><span className="text-sm">Type</span>
             <div className="mt-1 flex gap-2">
               {(["IN","OUT","ADJUST"] as const).map(t=>(
                 <label key={t} className={`px-3 py-2 rounded-xl border cursor-pointer ${type===t?"bg-black text-white":"bg-white"}`}>
-                  <input type="radio" name="type" className="hidden" checked={type===t} onChange={()=>setType(t)} />
-                  {t}
+                  <input type="radio" name="type" className="hidden" checked={type===t} onChange={()=>setType(t)} />{t}
                 </label>
               ))}
             </div>
           </label>
-          <label className="block">
-            <span className="text-sm">Qty</span>
+          <label className="block"><span className="text-sm">Qty</span>
             <input value={qty} onChange={e=>setQty(e.target.value)} type="number" min={0.01} step="0.01" className="border rounded-xl px-3 py-2 mt-1 w-32"/>
           </label>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <label className="block">
-            <span className="text-sm">Reference</span>
+          <label className="block"><span className="text-sm">Reference</span>
             <input value={reference} onChange={e=>setReference(e.target.value)} className="border rounded-xl px-3 py-2 mt-1 w-full"/>
           </label>
-          <label className="block">
-            <span className="text-sm">Notes</span>
+          <label className="block"><span className="text-sm">Notes</span>
             <input value={notes} onChange={e=>setNotes(e.target.value)} className="border rounded-xl px-3 py-2 mt-1 w-full"/>
           </label>
         </div>
