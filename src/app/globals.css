@@ -1,28 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Paksa light theme yang kontras */
+/* Paksa tema terang yang kontras */
 :root { color-scheme: light; }
 
 html, body {
-  @apply bg-white text-neutral-900 antialiased;
+  background: #ffffff;
+  color: #111827; /* neutral-900 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Form controls lebih jelas */
 input, select, textarea {
-  @apply bg-white text-neutral-900 placeholder:text-neutral-400;
+  background: #ffffff;
+  color: #111827;
 }
 
-/* Tabel lebih kontras */
-table thead th {
-  @apply font-semibold text-neutral-800;
-}
-table tbody td {
-  @apply text-neutral-800;
-}
-
-/* Kartu/panel default */
-.card {
-  @apply bg-white rounded-2xl shadow;
-}
+table thead th { font-weight: 600; color: #1f2937; } /* neutral-800 */
+table tbody td { color: #1f2937; }                  /* neutral-800 */
