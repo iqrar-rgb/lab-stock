@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Paksa light theme yang kontras */
+:root { color-scheme: light; }
+
+html, body {
+  @apply bg-white text-neutral-900 antialiased;
+}
+
+/* Form controls lebih jelas */
+input, select, textarea {
+  @apply bg-white text-neutral-900 placeholder:text-neutral-400;
+}
+
+/* Tabel lebih kontras */
+table thead th {
+  @apply font-semibold text-neutral-800;
+}
+table tbody td {
+  @apply text-neutral-800;
+}
+
+/* Kartu/panel default */
+.card {
+  @apply bg-white rounded-2xl shadow;
+}
